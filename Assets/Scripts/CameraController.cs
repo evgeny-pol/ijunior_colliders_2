@@ -3,9 +3,7 @@
 [RequireComponent(typeof(Camera))]
 public class CameraController : MonoBehaviour
 {
-    private const string HorizontalMouseAxis = "Mouse X";
-    private const string VerticalMouseAxis = "Mouse Y";
-    private const int SecondMouseButton = 1;
+    private const int RotateCommandButton = InputConstants.SecondMouseButton;
 
     [SerializeField] private Vector3 _rotateAround;
     [SerializeField] private float _moveSensitivity = 1f;
@@ -13,7 +11,7 @@ public class CameraController : MonoBehaviour
 
     private Camera _camera;
 
-    private bool IsRotating => Input.GetMouseButton(SecondMouseButton);
+    private bool IsRotating => Input.GetMouseButton(RotateCommandButton);
 
     private void Awake()
     {
@@ -28,8 +26,8 @@ public class CameraController : MonoBehaviour
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-            transform.RotateAround(_rotateAround, Vector3.up, Input.GetAxis(HorizontalMouseAxis) * _moveSensitivity);
-            transform.RotateAround(_rotateAround, transform.right, Input.GetAxis(VerticalMouseAxis) * -_moveSensitivity);
+            transform.RotateAround(_rotateAround, Vector3.up, Input.GetAxis(InputConstants.HorizontalMouseAxis) * _moveSensitivity);
+            transform.RotateAround(_rotateAround, transform.right, Input.GetAxis(InputConstants.VerticalMouseAxis) * -_moveSensitivity);
         }
         else
         {

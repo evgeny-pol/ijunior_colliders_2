@@ -2,13 +2,13 @@
 
 public class ExplodingObjectActivator : MonoBehaviour
 {
-    private const int FirstMouseButton = 0;
+    private const int ActivateObjectCommandButton = InputConstants.FirstMouseButton;
 
     [SerializeField] private LayerMask _explodingObjectsLayer;
 
     private void Update()
     {
-        if (!Input.GetMouseButtonUp(FirstMouseButton))
+        if (!Input.GetMouseButtonUp(ActivateObjectCommandButton))
             return;
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

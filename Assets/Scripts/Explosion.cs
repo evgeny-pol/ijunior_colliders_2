@@ -12,8 +12,6 @@ public class Explosion : MonoBehaviour
     [SerializeField] private float _upwardsModifier;
     [SerializeField] private ForceMode _forceMode;
 
-    private static readonly Collider[] s_affectedColliders = new Collider[1000];
-
     public float Force => _explosionForce;
 
     public float Radius => _explosionRadius;
@@ -36,11 +34,11 @@ public class Explosion : MonoBehaviour
     public void Explode()
     {
         Debug.Log($"Explosion force: {_explosionForce}, radius: {_explosionRadius}");
-        int affectedCount = Physics.OverlapSphereNonAlloc(transform.position, _explosionRadius, s_affectedColliders, _affectedLayers);
+        Collider[] affectedColliders = Physics.OverlapSphere(transform.position, _explosionRadius, _affectedLayers);
 
-        for (int i = 0; i < affectedCount; ++i)
+        foreach (Collider collider in affectedColliders)
         {
-            Rigidbody rigidbody = s_affectedColliders[i].attachedRigidbody;
+            Rigidbody rigidbody = collider.attachedRigidbody;
 
             if (rigidbody != null)
                 Explode(rigidbody);
